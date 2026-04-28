@@ -1,13 +1,32 @@
 import { NextRequest } from 'next/server'
 import Stripe from 'stripe'
 
+export const TIERS = {
+  single:  { label: 'Single Page',              pages: 1,  amount: 499  },
+  starter: { label: 'Starter — up to 5 pages',  pages: 5,  amount: 799  },
+  pro:     { label: 'Pro — up to 10 pages',      pages: 10, amount: 999  },
+  full:    { label: 'Full Site — up to 20 pages',pages: 20, amount: 1499 },
+  agency:  { label: 'Agency — up to 50 pages',  pages: 50, amount: 1999 },
+} as const
+
+export type TierKey = keyof typeof TIERS
+
+export function getTierKey(pageCount: number): TierKey {
+  if (pageCount <= 1)  return 'single'
+  if (pageCount <= 5)  return 'starter'
+  if (pageCount <= 10) return 'pro'
+  if (pageCount <= 20) return 'full'
+  return 'agency'
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-      apiVersion: '2026-04-22.dahlia',
-    })
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
-    const { url, analysisData } = await request.json()
+    const { url, selectedPages, analysisData } = await request.json()
+    const pages: string[] = selectedPages ?? [url]
+    const tierKey = getTierKey(pages.length)
+    const tier = TIERS[tierKey]
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -16,10 +35,10 @@ export async function POST(request: NextRequest) {
           price_data: {
             currency: 'usd',
             product_data: {
-              name: 'GEO Score Fix — Fixed HTML Code',
-              description: `Optimized HTML for ${url} — fixes all GEO issues, adds JSON-LD schema, meta tags, robots.txt, and llms.txt`,
+              name: `GEO Audit Fix — ${tier.label}`,
+              description: `Fixed HTML for ${pages.length} page${pages.length > 1 ? 's' : ''} on ${url} — JSON-LD schema, meta tags, Open Graph, robots.txt, llms.txt, sitemap.`,
             },
-            unit_amount: 499,
+            unit_amount: tier.amount,
           },
           quantity: 1,
         },
@@ -29,7 +48,10 @@ export async function POST(request: NextRequest) {
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
       metadata: {
         targetUrl: url,
-        analysisData: JSON.stringify(analysisData).slice(0, 500),
+        tierKey,
+        pageCount: String(pages.length),
+        selectedPages: JSON.stringify(pages).slice(0, 490),
+        analysisData: JSON.stringify(analysisData).slice(0, 490),
       },
     })
 

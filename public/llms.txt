@@ -1,0 +1,24 @@
+# GEOScore
+
+> Free AI visibility audit and fix service for websites. Check if your site is cited by ChatGPT, Perplexity, Google AI Overviews, Claude, Gemini, and Bing Copilot — and get it fixed.
+
+## What We Do
+GEOScore scans your website and scores it 0–100 across 6 GEO (Generative Engine Optimization) categories: AI Citability, Brand Authority, Content Quality, Technical, Structured Data, and Platform Optimization.
+
+We provide:
+- Free instant GEO score for any website
+- Free manual fix instructions for every issue found
+- Auto-fix code download (fixed HTML, robots.txt, llms.txt, sitemap.xml) from $4.99
+
+## Who It's For
+Small and medium businesses, freelancers, and agencies who want their websites to appear in AI-generated answers on ChatGPT, Perplexity, Google AI Overviews, and similar platforms.
+
+## Pricing
+- Single page fix: $4.99
+- Up to 5 pages: $9.99
+- Up to 10 pages: $14.99
+- Up to 20 pages: $19.99
+- Up to 50 pages: $29.99
+
+## Contact
+- Website: https://geoscore.app
