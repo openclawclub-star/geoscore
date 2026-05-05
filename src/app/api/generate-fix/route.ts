@@ -183,13 +183,11 @@ export async function POST(request: NextRequest) {
       const html = pageUrl === url ? homeHtml : await fetchPage(pageUrl)
       if (!html) return
       const fixed = await fixPageHtmlWithAI(html, pageUrl, siteName)
-      const headMatch = fixed.match(/<head[^>]*>([\s\S]*?)<\/head>/i)
-      const headContent = headMatch ? `<head>\n${headMatch[1]}\n</head>` : fixed
       const pagePath = new URL(pageUrl).pathname
       const filename = pagePath === '/'
         ? 'index.html'
         : pagePath.replace(/^\//, '').replace(/\//g, '-').replace(/\.html?$/, '') + '.html'
-      htmlFolder.file(filename, headContent)
+      htmlFolder.file(filename, fixed)
     })
     await pLimit(pageFns, 3)
 
@@ -236,7 +234,7 @@ ${pages.map((p, i) => `  ${i + 1}. ${p}`).join('\n')}
 FILES IN THIS ZIP
 ================================================================
 
-html-pages/       AI-fixed HTML for each page (title, meta, OG tags, JSON-LD)
+html-pages/       AI-fixed full HTML pages (title, meta, OG tags, JSON-LD, full content)
 robots.txt        Upload to ${origin}/robots.txt
 llms.txt          Upload to ${origin}/llms.txt
 sitemap.xml       Upload to ${origin}/sitemap.xml
@@ -267,34 +265,35 @@ STEP 1 — APPLY THE FIXED HTML TO YOUR PAGES
 ================================================================
 
 Open the html-pages/ folder. Each file corresponds to one page.
-Each HTML file contains ONLY the <head>...</head> section — no body content.
-
-HOW TO COPY THE HEAD CONTENT:
-1. Open the HTML file in your browser (double-click it)
-2. Right-click anywhere on the page and select "View Page Source"
-3. Select and copy everything between (and including) <head> and </head>
-4. Open your existing page file and replace its <head>...</head> section
-   with the copied content
-5. Do NOT touch anything inside the <body> section —
-   your page content, images, and layout stay exactly the same
+Each HTML file is the complete, fixed HTML page — it includes the corrected
+<head> section (title, meta tags, OG tags, JSON-LD) AND the full <body> content.
 
 IMPORTANT: Save a backup of your original page file before making any changes.
 
+--- Custom / Static HTML Site ---
+1. Connect to your server via FTP (FileZilla) or cPanel File Manager
+2. Download the matching live HTML file from your server as a backup
+3. Upload the fixed HTML file from html-pages/ to replace it on your server
+Repeat for each page.
+
 --- WordPress ---
+Option A — Replace the full page (recommended for custom-built WordPress sites):
+1. Go to Appearance > Theme File Editor > find the template for this page
+2. Replace its contents with the fixed HTML file contents
+3. Click Update File
+
+Option B — Replace only the <head> section (for standard WordPress themes):
 1. Install the free plugin "Header Footer Code Manager" (search in Plugins > Add New)
-2. Go to the plugin > Add New Script
-3. Open your fixed HTML file in a browser, right-click > View Page Source
-4. Copy everything between <head> and </head>
-5. Paste it into the script editor box
-6. Set Location to "Inside <head>"
-7. Under "Display On", select the specific page this file belongs to
-8. Click Save
+2. Open your fixed HTML file in a text editor
+3. Copy everything between <head> and </head>
+4. In the plugin > Add New Script, paste it, set Location to "Inside <head>",
+   select the specific page under "Display On", and click Save
 Repeat for each page in html-pages/.
 
 --- Wix ---
 1. Open Wix Editor and click on the page you want to fix
 2. Click Settings (top menu) > Advanced
-3. Open your fixed HTML file in a browser, right-click > View Page Source
+3. Open your fixed HTML file in a text editor
 4. Copy everything between <head> and </head>
 5. Paste into the "Additional tags" box
 6. Click Apply, then Publish
@@ -303,7 +302,7 @@ Repeat for each page.
 --- Squarespace ---
 1. Go to Pages > click the page you want to fix
 2. Click the gear icon (Settings) > Advanced tab
-3. Open your fixed HTML file in a browser, right-click > View Page Source
+3. Open your fixed HTML file in a text editor
 4. Copy everything between <head> and </head>
 5. Paste into the "Page Header Code Injection" box
 6. Click Save
@@ -313,24 +312,12 @@ Repeat for each page.
 1. Go to Online Store > Themes > click Edit Code
 2. Find the Liquid template for the page (e.g. index.liquid for homepage,
    page.liquid for regular pages, product.liquid for product pages)
-3. Open your fixed HTML file in a browser, right-click > View Page Source
+3. Open your fixed HTML file in a text editor
 4. Copy everything between <head> and </head>
 5. Paste just before the closing </head> tag in the Liquid file
 6. Click Save
 Note: In Shopify, one template covers multiple pages — add only the tags
 that apply to all pages sharing that template, or use Liquid conditionals.
-
---- Custom / Static HTML Site ---
-1. Open your fixed HTML file in a browser (double-click it)
-2. Right-click anywhere on the page and select "View Page Source"
-3. Select and copy everything between <head> and </head>
-4. Connect to your server via FTP (FileZilla) or cPanel File Manager
-5. Download and open the matching live HTML file on your server
-6. Replace the existing <head>...</head> content with the copied code
-7. Save and re-upload the file
-Repeat for each page.
-
-*** REMINDER: Only replace the <head> section. Never touch the <body>. ***
 
 ================================================================
 STEP 2 — UPLOAD robots.txt
