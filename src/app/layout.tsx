@@ -14,6 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  verification: {
+    google: 'google078b577411d88bad',
+  },
   title: "GEO Audit — Free AI Visibility Audit + Fix Service",
   description:
     "Check how visible your website is to ChatGPT, Perplexity, and Google AI Overviews. Get a free GEO audit in 60 seconds, free manual fix instructions, and auto-fix code downloads from $4.99.",
