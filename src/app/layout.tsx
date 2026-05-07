@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   verification: {
     google: 'google078b577411d88bad',
   },
-  title: "GEO Audit — Free AI Visibility Audit + Fix Service",
+  title: "GEOFix — Free AI Visibility Audit + Fix Service",
   description:
     "Check how visible your website is to ChatGPT, Perplexity, and Google AI Overviews. Get a free GEO audit in 60 seconds, free manual fix instructions, and auto-fix code downloads from $4.99.",
   keywords: [
@@ -25,18 +25,22 @@ export const metadata: Metadata = {
     "Perplexity SEO", "Google AI Overviews", "llms.txt generator",
     "JSON-LD schema fix", "AI search optimization", "GEO fix service",
   ],
+  alternates: {
+    canonical: 'https://www.geofix.app',
+  },
   openGraph: {
-    title: "GEO Audit — Free AI Visibility Audit + Fix Service",
+    title: "GEOFix — Free AI Visibility Audit + Fix Service",
     description: "Check if your website gets cited by ChatGPT, Perplexity, and Google AI Overviews. Free audit + auto-fix from $4.99.",
     type: "website",
+    url: 'https://www.geofix.app',
   },
 };
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'GEO Audit',
-  url: 'https://geoaudit.app',
+  name: 'GEOFix',
+  url: 'https://www.geofix.app',
   description: 'Free AI visibility audit and fix service. Check if your website is cited by ChatGPT, Perplexity, and Google AI Overviews. Get a free GEO audit and fix issues from $4.99.',
   applicationCategory: 'WebApplication',
   operatingSystem: 'Web',
@@ -48,8 +52,11 @@ const jsonLd = {
   },
   provider: {
     '@type': 'Organization',
-    name: 'GEO Audit',
-    url: 'https://geoaudit.app',
+    name: 'GEOFix',
+    url: 'https://www.geofix.app',
+    sameAs: [
+      'https://www.geofix.app',
+    ],
   },
 }
 
@@ -64,6 +71,15 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-31N42CTQFV" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-31N42CTQFV');`,
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

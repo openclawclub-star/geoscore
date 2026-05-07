@@ -18,14 +18,14 @@ export async function POST(request: NextRequest) {
     })
 
     await transporter.sendMail({
-      from: `"GEO Audit Contact" <${process.env.GMAIL_USER}>`,
+      from: `"GEOFix Contact" <${process.env.GMAIL_USER}>`,
       to: 'openclawclub@gmail.com',
       replyTo: email,
-      subject: `[GEO Audit] ${subject || 'New message'}`,
+      subject: `[GEOFix] ${subject || 'New message'}`,
       text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\n${message}`,
       html: `
         <div style="font-family:sans-serif;max-width:600px;margin:0 auto;">
-          <h2 style="color:#10b981;">New GEO Audit Message</h2>
+          <h2 style="color:#10b981;">New GEOFix Message</h2>
           <table style="width:100%;border-collapse:collapse;">
             <tr><td style="padding:8px 0;color:#6b7280;width:80px;"><strong>Name</strong></td><td style="padding:8px 0;">${name}</td></tr>
             <tr><td style="padding:8px 0;color:#6b7280;"><strong>Email</strong></td><td style="padding:8px 0;"><a href="mailto:${email}">${email}</a></td></tr>

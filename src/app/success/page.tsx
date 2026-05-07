@@ -192,7 +192,7 @@ function SuccessContent() {
     <main className="min-h-screen bg-gray-50 pb-16">
       <nav className="border-b border-gray-200 bg-white px-6 py-4">
         <button onClick={() => router.push('/')} className="text-xl font-bold text-gray-900 hover:opacity-80">
-          GEO<span className="text-emerald-500">Audit</span>
+          GEO<span className="text-emerald-500">Fix</span>
         </button>
       </nav>
 

@@ -76,7 +76,7 @@ export default function Home() {
     <main className="min-h-screen bg-gray-50 flex flex-col">
       {/* Nav */}
       <nav className="border-b border-gray-200 bg-white px-6 py-4 flex items-center justify-between">
-        <span className="text-xl font-bold text-gray-900">GEO<span className="text-emerald-500">Audit</span></span>
+        <span className="text-xl font-bold text-gray-900">GEO<span className="text-emerald-500">Fix</span></span>
         <div className="flex items-center gap-4">
           <span className="hidden sm:block text-base font-bold text-gray-500">Audit. Fix. Upload. Done.</span>
           <a href="/contact" className="text-base font-bold text-gray-500 hover:text-emerald-600 transition-colors">Contact</a>
@@ -87,7 +87,7 @@ export default function Home() {
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-8">
         <div className="max-w-2xl w-full text-center">
           <div className="inline-block bg-emerald-50 border border-emerald-200 text-emerald-600 text-lg font-bold px-5 py-2 rounded-full mb-6 uppercase tracking-wider">
-            Free GEO Audit — Two Ways to Fix
+            Free GEOFix — Two Ways to Fix
           </div>
 
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4 leading-tight">
@@ -182,7 +182,7 @@ export default function Home() {
       </div>
 
       <footer className="border-t border-gray-200 bg-white py-6 text-center text-gray-400 text-xs">
-        GEO Audit © 2026 — Built for the AI search era
+        GEO Fix © 2026 — Built for the AI search era
       </footer>
     </main>
   )

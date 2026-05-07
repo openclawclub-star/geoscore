@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
           price_data: {
             currency: 'usd',
             product_data: {
-              name: `GEO Audit Fix — ${tier.label}`,
+              name: `GEOFix — ${tier.label}`,
               description: `Fixed HTML for ${pages.length} page${pages.length > 1 ? 's' : ''} on ${url} — JSON-LD schema, meta tags, Open Graph, robots.txt, llms.txt, sitemap.`,
             },
             unit_amount: tier.amount,

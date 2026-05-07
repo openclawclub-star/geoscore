@@ -230,14 +230,15 @@ export async function POST(request: NextRequest) {
         const res = await fetch(url, {
           method: 'HEAD',
           headers: { 'User-Agent': 'GeoAuditBot/1.0' },
-          signal: AbortSignal.timeout(8000),
+          signal: AbortSignal.timeout(10000),
         })
-        if (res.ok || res.status < 500) {
-          return Response.json({ reachable: true })
+        if (res.status >= 500) {
+          return Response.json({ unreachable: true })
         }
-        return Response.json({ unreachable: true })
+        return Response.json({ reachable: true })
       } catch {
-        return Response.json({ unreachable: true })
+        // Network error or timeout — assume reachable and let the full analysis determine the real status
+        return Response.json({ reachable: true })
       }
     }
 

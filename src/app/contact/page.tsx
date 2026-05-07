@@ -43,7 +43,7 @@ export default function ContactPage() {
       {/* Nav */}
       <nav className="border-b border-gray-200 bg-white px-6 py-4 flex items-center justify-between">
         <button onClick={() => router.push('/')} className="text-xl font-bold text-gray-900 hover:opacity-80">
-          GEO<span className="text-emerald-500">Score</span>
+          GEO<span className="text-emerald-500">Fix</span>
         </button>
         <button onClick={() => router.push('/')} className="text-sm text-gray-500 hover:text-gray-900">
           ← Back to home
